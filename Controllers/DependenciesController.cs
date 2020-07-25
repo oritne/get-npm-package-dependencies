@@ -26,6 +26,7 @@ namespace HandleDependenciesAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(packageName)) throw new ApplicationException("Package name can't be empty");
                 Package package = new Package() { Name = packageName, Version = String.IsNullOrEmpty(packageVersion) ? "latest" : packageVersion  };
                 Node result = await GetDependencyObjectAsync(package, new Node() { Package = package });
                 if (result == null) throw new ApplicationException("Package not found");               
